@@ -15,14 +15,14 @@ namespace nerdy.Services {
         private const string API_URL = "https://api-snacks.nerderylabs.com/v1";
        
         // Use in-memory list of snacks for now.
-        private List<Snack> inMemorySnacks = new[] {
-            new Snack{Id=1000,Name="Ramen",Optional=false,PurchaseLocations= new[] {"Whole Foods"},PurchaseCount=1,LastPurchaseDate="6/22/2017"},
-            new Snack{Id=1001,Name="Pop Tarts",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate="6/28/2017"},
-            new Snack{Id=1002,Name="Corn Nuts",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate="6/28/2017"},
-            new Snack{Id=1003,Name="Bagels",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate="6/15/2017"},
-            new Snack{Id=1004,Name="Wasabi Peas",Optional=false,PurchaseLocations=new[] {"CVS"},PurchaseCount=1,LastPurchaseDate="6/15/2017"},
-            new Snack{Id=1005,Name="Mixed Nuts",Optional=false,PurchaseLocations=new[] {"CVS"},PurchaseCount=1,LastPurchaseDate="7/8/2017"},
-            new Snack{Id=1006,Name="Bananas",Optional=false,PurchaseLocations=new[] {"Whole Foods"},PurchaseCount=1,LastPurchaseDate="6/12/2017"}
+        private List<Snack> inMemorySnacks = new List<Snack> {
+            new Snack{Id=1000,Name="Ramen",Optional=false,PurchaseLocations= new[] {"Whole Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/22/2017")},
+            new Snack{Id=1001,Name="Pop Tarts",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/28/2017")},
+            new Snack{Id=1002,Name="Corn Nuts",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/28/2017")},
+            new Snack{Id=1003,Name="Bagels",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/15/2017")},
+            new Snack{Id=1004,Name="Wasabi Peas",Optional=false,PurchaseLocations=new[] {"CVS"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/15/2017")},
+            new Snack{Id=1005,Name="Mixed Nuts",Optional=false,PurchaseLocations=new[] {"CVS"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("7/8/2017")},
+            new Snack{Id=1006,Name="Bananas",Optional=false,PurchaseLocations=new[] {"Whole Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/12/2017")}
         };
 
         /// <summary>
