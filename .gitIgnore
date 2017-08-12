@@ -1,0 +1,5 @@
+.bowerrc
+.vscode
+bin
+obj
+appsettings.*.json
