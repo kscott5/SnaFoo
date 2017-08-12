@@ -14,9 +14,9 @@ namespace nerdy.Controllers
 
 
         public HomeController(ILoggerFactory loggerFactory) : base() {
-            this.logger = loggerFactory.CreateLogger("HomeController");
+            this.logger = loggerFactory.CreateLogger("Nerdy");
         }
-        private const string PAGE_TITLE = "SNA Foo - %0";
+        private const string PAGE_TITLE = "SNA Foo - %s";
 
         private void SetViewDataTitle(string title) {
             ViewData["Body_Title"] = title;
@@ -26,7 +26,8 @@ namespace nerdy.Controllers
         [HttpPost]
         [Route("Suggestions")]
         public void SnaFoo4([FromForm] string suggestionsInput, [FromForm] string suggestionLocation  ) {
-            
+            this.logger.LogDebug("Suggestions HttpPOST/Data: %1 %2", suggestionsInput, suggestionLocation);
+            this.RedirectToAction("Suggestions");
         }
 
         [Route("Voting")]
