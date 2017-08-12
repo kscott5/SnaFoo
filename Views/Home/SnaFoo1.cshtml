@@ -1,10 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Contact";
-}
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
-
-<div class="shelf shelf_2">
+﻿<div class="shelf shelf_2">
     <div class="error isHidden">You have attempted to add more than the allowed number of suggestions per month!
         <br />There is a total of three allowed suggestions per month.</div>
     <div class="error isHidden">You have attempted to add a suggestion that already exists!</div>
@@ -12,7 +6,7 @@
 </div>
 <div class="content-centered">
     <div class="shelf shelf_2">
-        <form method="" action="" class="form" novalidate>
+        <form asp-action="Suggestions" asp-controller="Home" method="POST" class="form" novalidate>
             <fieldset class="shelf shelf_2">
                 <div class="shelf shelf_2">
                     <div class="shelf">
