@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using nerdy.Services;
+
 namespace nerdy
 {
     public class Startup
@@ -29,6 +31,9 @@ namespace nerdy
         {
             // Add framework services.
             services.AddMvc();
+
+            // Add Snack Service for Nerdy API
+            services.AddSingleton(typeof(SnackService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
