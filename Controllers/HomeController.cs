@@ -5,16 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using nerdy.Models;
+using nerdy.Services;
+
 namespace nerdy.Controllers
 {
     [Route("Home")]
     public class HomeController : Controller
     {
         private ILogger logger;
+        private SnackService snackService;
 
-
-        public HomeController(ILoggerFactory loggerFactory) : base() {
-            this.logger = loggerFactory.CreateLogger("Nerdy");
+        public HomeController(ILoggerFactory loggerFactory, SnackService snackService) : base() {
+            this.logger = loggerFactory.CreateLogger("Nerdy.Controllers.Home");
+            this.snackService = snackService;
         }
         private const string PAGE_TITLE = "SNA Foo - %s";
 
@@ -50,7 +54,9 @@ namespace nerdy.Controllers
         public IActionResult SnaFoo1()
         {
             this.SetViewDataTitle("Suggestions");
-            return View();
+
+            var snacks = this.snackService.GetSnacks();            
+            return View(snacks);
         }
 
         [Route("Error")]
