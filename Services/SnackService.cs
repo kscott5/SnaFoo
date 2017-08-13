@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using Microsoft.Extensions.Logging;
+
 using nerdy.Models;
 
 namespace nerdy.Services {
@@ -11,6 +13,12 @@ namespace nerdy.Services {
     /// JavaScript developers.
     /// </summary>
     public class SnackService {
+        public SnackService(ILoggerFactory loggerFactory) {
+            this.logger = loggerFactory.CreateLogger("Nerdy.Services.Snacks");
+        }
+
+        private ILogger logger;
+
         private const string API_KEY = "26682c20-eed7-4667-a051-bf53f0922561";
         private const string API_URL = "https://api-snacks.nerderylabs.com/v1";
        
@@ -30,12 +38,13 @@ namespace nerdy.Services {
         /// </summary>
         /// <return> List of Snacks</return>
         public IList<Snack> GetSnacks() {
-            // TODO: Call the API instead
+            this.logger.LogDebug("Get Snacks - TODO: Call the API instead");
+
             return this.inMemorySnacks; 
         }
 
         public Boolean SaveSnack(Snack data) {
-            // TODO: Call the API instead
+            this.logger.LogDebug("Save Snack - TODO: Call the API instead");
 
             if(data == null) return false;
             this.inMemorySnacks.Add(data); // This list is dump! It does no data checks
