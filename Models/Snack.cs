@@ -7,8 +7,8 @@ namespace nerdy.Models {
         public int Id {get; set;}
         public string Name {get; set;}
         public Boolean Optional {get; set;}
-        public IList<string> PurchaseLocations {get; set;}
+        public String PurchaseLocations {get; set;}
         public int PurchaseCount {get; set;}
-        public DateTime LastPurchaseDate {get; set;}
+        public DateTime? LastPurchaseDate {get; set;}
     }
 }
