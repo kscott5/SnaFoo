@@ -1,4 +1,6 @@
-﻿<div class="shelf shelf_2">
+﻿@model IList<nerdy.Models.Snack>
+
+<div class="shelf shelf_2">
     <div class="error isHidden">You have attempted to add more than the allowed number of suggestions per month!
         <br />There is a total of three allowed suggestions per month.</div>
     <div class="error isHidden">You have attempted to add a suggestion that already exists!</div>
@@ -15,10 +17,9 @@
                         </label>
                     </div>
                     <select name="snackOptions" id="snackOptions">
-                        <option value="snack1">snack suggestion 1</option>
-                        <option value="snack2">snack suggestion 2</option>
-                        <option value="snack3">snack suggestion 3</option>
-                        <option value="snack4">snack suggestion 4</option>
+                        @foreach(var snack in Model) {
+                            <option value=@snack.Id>@snack.Name</option>
+                        }
                     </select>
                 </div>
             </fieldset>
