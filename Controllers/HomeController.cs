@@ -10,17 +10,16 @@ using nerdy.Services;
 
 namespace nerdy.Controllers
 {
-    [Route("Home")]
     public class HomeController : Controller
     {
-        private ILogger logger;
-        private SnackService snackService;
+        private ILogger Logger {get; set;}
+        private SnackService SnackService {get; set;}
 
         public HomeController(ILoggerFactory loggerFactory, SnackService snackService) : base() {
-            this.logger = loggerFactory.CreateLogger("Nerdy.Controllers.Home");
-            this.snackService = snackService;
+            this.Logger = loggerFactory.CreateLogger("Nerdy.Controllers.Home");
+            this.SnackService = snackService;
         }
-        private const string PAGE_TITLE = "SNA Foo - %s";
+        private const string PAGE_TITLE = "SNA Foo - %1";
 
         private void SetViewDataTitle(string title) {
             ViewData["Body_Title"] = title;
@@ -28,38 +27,48 @@ namespace nerdy.Controllers
         }
 
         [HttpPost]
-        [Route("Suggestions")]
-        public void SnaFoo4([FromForm] string suggestionsInput, [FromForm] string suggestionLocation  ) {
-            this.logger.LogDebug("Suggestions HttpPOST/Data: %1 %2", suggestionsInput, suggestionLocation);
-            this.RedirectToAction("Suggestions");
+        [Route("Home/Suggestions")]
+        public IActionResult SnaFoo4([FromBody] string suggestionsInput, [FromBody] string suggestionLocation  ) {
+            this.Logger.LogDebug("Suggestions HttpPOST/Data: %1 %2", suggestionsInput, suggestionLocation);
+            this.SnackService.SaveSnack(
+                new Snack{
+                    Id=SnackService.SNACK_ID++, 
+                    Name=suggestionsInput, 
+                    PurchaseLocations = suggestionLocation}
+            );
+            
+            return this.RedirectToAction("Suggestions");
         }
 
-        [Route("Voting")]
+        [Route("Home/Voting")]
+        [Route("")]
         public IActionResult SnaFoo3()
         {
-            this.logger.LogDebug("HttpGet: Voting");
-
+            this.Logger.LogDebug("HttpGet: Voting");            
             this.SetViewDataTitle("Voting");
-            return View();
+
+            var snacks = this.SnackService.GetSnacks();
+            var data = new object[] {snacks, "testing"};
+            return View(data);
         }
 
-        [Route("ShoppingList")]
+        [Route("Home/ShoppingList")]
         public IActionResult SnaFoo2()
         {
             this.SetViewDataTitle("Shopping List");
-            return View();
+            var snacks = this.SnackService.GetSnacks();
+            return View(snacks);
         }
 
-        [Route("Suggestions")]
+        [Route("Home/Suggestions")]
         public IActionResult SnaFoo1()
         {
             this.SetViewDataTitle("Suggestions");
 
-            var snacks = this.snackService.GetSnacks();            
+            var snacks = this.SnackService.GetSnacks();            
             return View(snacks);
         }
 
-        [Route("Error")]
         public IActionResult Error()
         {
             return View();
