@@ -8,9 +8,7 @@ using nerdy.Models;
 
 namespace nerdy.Services {
     /// <summary>
-    /// Facade for the Nerdery Snack Food API that provides data 
-    /// used in the Nerdery Acceptance Test (NAT) for backend and
-    /// JavaScript developers.
+    /// In-memory service provider for Snack Data
     /// </summary>
     public class SnackService {
         public SnackService(ILoggerFactory loggerFactory) {
