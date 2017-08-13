@@ -1,4 +1,5 @@
-﻿<div class="shelf shelf_1">
+﻿@model List<nerdy.Models.Snack>
+<div class="shelf shelf_1">
     <table class="table">
         <thead>
             <tr>
@@ -7,21 +8,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Donuts</td>
-                <td>Pies &amp; Cakes Bakery</td>
-            </tr>
-            <tr>
-                <td>Spam</td>
-                <td>Cub</td>
-            </tr>
-            <tr>
-                <td>Pistachios</td>
-                <td>Cub</td>
-            </tr>
-            <tr>
-                <td>Buckets of M&amp;M's</td>
-                <td>Cub</td>
-            </tr>
+            @foreach(var snack in Model){
+                <tr>
+                    <td>@snack.Name</td>
+                    <td>@snack.PurchaseLocations</td>
+                </tr>
+            }
         </tbody>
     </table>
