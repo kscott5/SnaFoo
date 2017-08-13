@@ -14,40 +14,48 @@ namespace nerdy.Services {
     /// </summary>
     public class SnackService {
         public SnackService(ILoggerFactory loggerFactory) {
-            this.logger = loggerFactory.CreateLogger("Nerdy.Services.Snacks");
+            this.Logger = loggerFactory.CreateLogger("Nerdy.Services.Snacks");
         }
 
-        private ILogger logger;
+        public static int SNACK_ID = 1007;
 
-        private const string API_KEY = "26682c20-eed7-4667-a051-bf53f0922561";
-        private const string API_URL = "https://api-snacks.nerderylabs.com/v1";
-       
+        protected ILogger Logger {get; set;}
+
         // Use in-memory list of snacks for now.
-        private List<Snack> inMemorySnacks = new List<Snack> {
-            new Snack{Id=1000,Name="Ramen",Optional=false,PurchaseLocations= new[] {"Whole Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/22/2017")},
-            new Snack{Id=1001,Name="Pop Tarts",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/28/2017")},
-            new Snack{Id=1002,Name="Corn Nuts",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/28/2017")},
-            new Snack{Id=1003,Name="Bagels",Optional=false,PurchaseLocations=new[] {"Cub Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/15/2017")},
-            new Snack{Id=1004,Name="Wasabi Peas",Optional=false,PurchaseLocations=new[] {"CVS"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/15/2017")},
-            new Snack{Id=1005,Name="Mixed Nuts",Optional=false,PurchaseLocations=new[] {"CVS"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("7/8/2017")},
-            new Snack{Id=1006,Name="Bananas",Optional=false,PurchaseLocations=new[] {"Whole Foods"},PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/12/2017")}
+        protected List<Snack> inMemorySnacks = new List<Snack> {
+            new Snack{Id=1000,Name="Ramen",Optional=true,PurchaseLocations="Whole Foods",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/22/2017")},
+            new Snack{Id=1001,Name="Pop Tarts",Optional=true,PurchaseLocations="Cub Foods",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/28/2017")},
+            new Snack{Id=1002,Name="Corn Nuts",Optional=false,PurchaseLocations="Cub Foods",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/28/2017")},
+            new Snack{Id=1003,Name="Bagels",Optional=true,PurchaseLocations="Cub Foods",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/15/2017")},
+            new Snack{Id=1004,Name="Wasabi Peas",Optional=false,PurchaseLocations="CVS",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/15/2017")},
+            new Snack{Id=1005,Name="Trail Mix",Optional=true,PurchaseLocations="CVS",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("7/8/2017")},
+            new Snack{Id=1006,Name="Cereal",Optional=true,PurchaseLocations="Aldi",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/12/2017")},
+            new Snack{Id=1006,Name="Bananas",Optional=false,PurchaseLocations="Whole Foods",PurchaseCount=1,LastPurchaseDate=Convert.ToDateTime("6/12/2017")},
         };
 
         /// <summary>
         /// Retrieves a list of snacks from the Nerdy Snack API
         /// </summary>
         /// <return> List of Snacks</return>
-        public IList<Snack> GetSnacks() {
-            this.logger.LogDebug("Get Snacks - TODO: Call the API instead");
+        public virtual IList<Snack> GetSnacks() {
+            this.Logger.LogDebug("Get Snacks");
 
+            // Could use cache to avoid uncessary api calls 
             return this.inMemorySnacks; 
         }
 
-        public Boolean SaveSnack(Snack data) {
-            this.logger.LogDebug("Save Snack - TODO: Call the API instead");
+
+        /// <summary>
+        /// Sends a snack to the Nerdy Snack API. Updates in-memory
+        /// cache.
+        /// </summary>
+        /// <return> True if the saved success, else False</return>
+        public virtual Boolean SaveSnack(Snack data) {
+            this.Logger.LogDebug("Save Snack");
 
             if(data == null) return false;
-            this.inMemorySnacks.Add(data); // This list is dump! It does no data checks
+
+            this.inMemorySnacks.Add(data); // This list is dumb! It does no data checks
             return true;
         }
     }
