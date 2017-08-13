@@ -34,6 +34,8 @@ namespace nerdy
 
             // Add Snack Service for Nerdy API
             services.AddSingleton(typeof(SnackService));
+
+            services.AddSingleton(typeof(VotingService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
