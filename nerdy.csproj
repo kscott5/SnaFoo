@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>net451</TargetFramework>
     <AssemblyName>SnaFoo</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>SnaFoo</PackageId>    

@@ -16,6 +16,15 @@ namespace nerdy.Services {
 
         protected ILogger Logger {get; set;}
 
+        public void SaveSnack(Snack data) {
+            this.Logger.LogDebug("Save Snack: TODO");
+        }
 
+        public IList<Snack> GetSnacks(DateTime date) {
+            this.Logger.LogDebug("Get Snacks: TODO");
+            var monthDate = new DateTime(date.Year, date.Month, 1);
+
+            return new List<Snack>();
+        }
     }
 }

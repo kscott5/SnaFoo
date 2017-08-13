@@ -15,7 +15,8 @@ namespace nerdy.Services {
         private const string API_KEY = "26682c20-eed7-4667-a051-bf53f0922561";
         private const string API_URL = "https://api-snacks.nerderylabs.com/v1";
        
-        public SnaAPIService(ILoggerFactory loggerFactory) : base(loggerFactory) {
+        public SnaAPIService(ILoggerFactory loggerFactory, VotingService votingService) : 
+            base(loggerFactory, votingService) {
             this.Logger = loggerFactory.CreateLogger("Nerdy.Services.SnaAPI");
             this.inMemorySnacks = new List<Snack>();
         }

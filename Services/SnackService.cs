@@ -11,11 +11,14 @@ namespace nerdy.Services {
     /// In-memory service provider for Snack Data
     /// </summary>
     public class SnackService {
-        public SnackService(ILoggerFactory loggerFactory) {
+        public SnackService(ILoggerFactory loggerFactory, VotingService votingService) {
             this.Logger = loggerFactory.CreateLogger("Nerdy.Services.Snacks");
+            this.VotingService = VotingService;
         }
 
         public static int SNACK_ID = 1007;
+
+        public VotingService VotingService {get; private set;}
 
         protected ILogger Logger {get; set;}
 
@@ -54,6 +57,7 @@ namespace nerdy.Services {
             if(data == null) return false;
 
             this.inMemorySnacks.Add(data); // This list is dumb! It does no data checks
+            this.VotingService.SaveSnack(data);
             return true;
         }
     }
