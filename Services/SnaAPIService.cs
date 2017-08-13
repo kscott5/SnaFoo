@@ -12,6 +12,7 @@ namespace nerdy.Services {
     /// JavaScript developers.
     /// </summary>
     public class SnaAPIService : SnackService {
+        // TODO: Storing this in appsettings for injection into service
         private const string API_KEY = "26682c20-eed7-4667-a051-bf53f0922561";
         private const string API_URL = "https://api-snacks.nerderylabs.com/v1";
        
