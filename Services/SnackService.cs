@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 using nerdy.Models;
 
@@ -11,15 +12,17 @@ namespace nerdy.Services {
     /// In-memory service provider for Snack Data
     /// </summary>
     public class SnackService {
-        public SnackService(ILoggerFactory loggerFactory, VotingService votingService) {
+        public SnackService(ILoggerFactory loggerFactory, 
+            IConfigurationRoot configurationRoot, VotingService votingService) {
             this.Logger = loggerFactory.CreateLogger("Nerdy.Services.Snacks");
-            this.VotingService = VotingService;
+            this.VotingService = votingService;
+            this.Configuration = configurationRoot;
         }
 
         public static int SNACK_ID = 1007;
 
         public VotingService VotingService {get; private set;}
-
+        protected IConfigurationRoot Configuration {get; private set;}
         protected ILogger Logger {get; set;}
 
         // Use in-memory list of snacks for now.
@@ -39,7 +42,7 @@ namespace nerdy.Services {
         /// </summary>
         /// <return> List of Snacks</return>
         public virtual IList<Snack> GetSnacks() {
-            this.Logger.LogDebug("Get Snacks");
+            this.Logger.LogDebug("Get Snacks: {0}", this.inMemorySnacks.Count);
 
             // Could use cache to avoid uncessary api calls 
             return this.inMemorySnacks; 
@@ -52,9 +55,7 @@ namespace nerdy.Services {
         /// </summary>
         /// <return> True if the saved success, else False</return>
         public virtual Boolean SaveSnack(Snack data) {
-            this.Logger.LogDebug("Save Snack");
-
-            if(data == null) return false;
+            this.Logger.LogDebug("Save Snack: {0}", data);
 
             this.inMemorySnacks.Add(data); // This list is dumb! It does no data checks
             this.VotingService.SaveSnack(data);

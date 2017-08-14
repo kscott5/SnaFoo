@@ -20,7 +20,18 @@ Outside of the Chicago Public Library's Youth Media Center, all other adult comp
 to use each day.
 
 
+NOTE:
 
+This site using MongoDB. You can download a copy from their website. However,
+you must ensure you create the following folders.
+
+./logs
+./data
+    ./db
+
+Excute the following from any shell before running this app:
+
+mongod --config ./mongodb.conf
 
 
 

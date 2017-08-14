@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using MongoDB.Driver;
+
+using nerdy.Models;
 using nerdy.Services;
 
 namespace nerdy
@@ -29,6 +32,8 @@ namespace nerdy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(typeof(IConfigurationRoot), this.Configuration);
+
             // Add framework services.
             services.AddMvc();
 
@@ -36,6 +41,13 @@ namespace nerdy
             services.AddSingleton(typeof(SnackService));
 
             services.AddSingleton(typeof(VotingService));
+
+            var url = this.Configuration.GetValue("MongoDB:ConnectionUrl", "mongodb://localhost:27017");
+            var dbName = this.Configuration.GetValue("MongoDB:DatabaseName", "foo");
+            var mongoDatabase = new MongoClient(url).GetDatabase(dbName);
+
+            var dbCollection = mongoDatabase.GetCollection<Snack>("snack");
+            services.AddSingleton(typeof(IMongoCollection<Snack>), dbCollection);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

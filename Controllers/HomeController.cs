@@ -19,7 +19,7 @@ namespace nerdy.Controllers
             this.Logger = loggerFactory.CreateLogger("Nerdy.Controllers.Home");
             this.SnackService = snackService;
         }
-        private const string PAGE_TITLE = "SNA Foo - %1";
+        private const string PAGE_TITLE = "SNA Foo - {0}";
 
         private void SetViewDataTitle(string title) {
             ViewData["Body_Title"] = title;
@@ -28,16 +28,16 @@ namespace nerdy.Controllers
 
         [HttpPost]
         [Route("Home/Suggestions")]
-        public IActionResult SnaFoo4([FromBody] string suggestionsInput, [FromBody] string suggestionLocation  ) {
-            this.Logger.LogDebug("Suggestions HttpPOST/Data: %1 %2", suggestionsInput, suggestionLocation);
+        public IActionResult SnaFoo4([FromForm] string suggestionInput, [FromForm] string suggestionLocation  ) {
+            this.Logger.LogDebug("Suggestions HttpPOST/Data: {0} - {1} ", suggestionInput, suggestionLocation);
             this.SnackService.SaveSnack(
                 new Snack{
                     Id=SnackService.SNACK_ID++, 
-                    Name=suggestionsInput, 
+                    Name=suggestionInput, 
                     PurchaseLocations = suggestionLocation}
             );
             
-            return this.RedirectToAction("Suggestions");
+            return this.RedirectToAction("Suggestions", "Home");
         }
 
         [Route("Home/Voting")]

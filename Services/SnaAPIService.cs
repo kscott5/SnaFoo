@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Microsoft.Extensions.Configuration;
+
 using nerdy.Models;
 
 namespace nerdy.Services {
@@ -12,14 +17,20 @@ namespace nerdy.Services {
     /// JavaScript developers.
     /// </summary>
     public class SnaAPIService : SnackService {
-        // TODO: Storing this in appsettings for injection into service
-        private const string API_KEY = "26682c20-eed7-4667-a051-bf53f0922561";
-        private const string API_URL = "https://api-snacks.nerderylabs.com/v1";
+        private string API_KEY = "some api key";
+        private string API_URL = "some api url";
        
-        public SnaAPIService(ILoggerFactory loggerFactory, VotingService votingService) : 
-            base(loggerFactory, votingService) {
+        public SnaAPIService(ILoggerFactory loggerFactory, 
+            IConfigurationRoot configurationRoot, VotingService votingService) : 
+            base(loggerFactory, configurationRoot, votingService) {
             this.Logger = loggerFactory.CreateLogger("Nerdy.Services.SnaAPI");
             this.inMemorySnacks = new List<Snack>();
+
+            this.API_KEY = this.Configuration.GetValue("NerdyApi/Key", API_KEY);
+            this.API_URL = this.Configuration.GetValue("NerdyApi/Url", API_URL);
+
+            this.Logger.LogDebug("API Key: " + API_KEY);
+            this.Logger.LogDebug("API Url: " + API_URL);
         }
 
         public override IList<Snack> GetSnacks() {

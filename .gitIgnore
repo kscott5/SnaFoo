@@ -2,5 +2,8 @@
 .vscode
 bin
 obj
+logs
+data
+*.pid
 appsettings.*.json
 *.bk
