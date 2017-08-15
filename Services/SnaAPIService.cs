@@ -19,6 +19,11 @@ namespace nerdy.Services {
     /// used in the Nerdery Acceptance Test (NAT) for backend and
     /// JavaScript developers.
     /// </summary>
+    /// <remarks>
+    /// Implementation based on expected API documented request/response.
+    /// Tested using stubbed NodeJS - Express app for API request/response
+    /// simulations.
+    /// </remarks>
     public class SnaAPIService : SnackService {
         private string api_auth_key = "some api key";
         private string api_base_url = "some api url";
@@ -61,6 +66,20 @@ namespace nerdy.Services {
             return snacks;
          }
         
+        private async Task<List<Snack>> GetSnacksAsync() {
+            var url = string.Format("{0}/snacks", this.api_base_url);
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("Authorization", this.api_auth_key);
+            
+            var jsonTask = client.GetStringAsync(url);
+            var jsonData = await jsonTask;
+
+            return JsonConvert.DeserializeObject<List<Snack>>(jsonData);
+        }
+
         /// <summary>
         /// Sends a snack to the Nerdy Snack API and local <cref name="VotingService"/>
         /// cache.
