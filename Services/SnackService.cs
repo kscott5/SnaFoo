@@ -38,7 +38,7 @@ namespace nerdy.Services {
         };
 
         /// <summary>
-        /// Retrieves a list of snacks from the Nerdy Snack API
+        /// Retrieves a list of snacks from in-memory list
         /// </summary>
         /// <return> List of Snacks</return>
         public virtual IList<Snack> GetSnacks() {
@@ -48,9 +48,8 @@ namespace nerdy.Services {
             return this.inMemorySnacks; 
         }
 
-
         /// <summary>
-        /// Sends a snack to the Nerdy Snack API. Updates in-memory
+        /// Stores a snack to in-memory list and <cref name="VotingService"/>
         /// cache.
         /// </summary>
         /// <return> True if the saved success, else False</return>
