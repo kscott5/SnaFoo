@@ -15,7 +15,7 @@ namespace nerdy.Controllers
         private ILogger Logger {get; set;}
         private SnackService SnackService {get; set;}
 
-        public HomeController(ILoggerFactory loggerFactory, SnackService snackService) : base() {
+        public HomeController(ILoggerFactory loggerFactory, SnaAPIService snackService) : base() {
             this.Logger = loggerFactory.CreateLogger("Nerdy.Controllers.Home");
             this.SnackService = snackService;
         }
