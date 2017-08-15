@@ -39,6 +39,7 @@ namespace nerdy
 
             // Add Snack Service for Nerdy API
             services.AddSingleton(typeof(SnackService));
+            services.AddSingleton(typeof(SnaAPIService));
 
             services.AddSingleton(typeof(VotingService));
 
